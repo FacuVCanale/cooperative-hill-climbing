@@ -198,11 +198,11 @@ def main() -> None:
     dataAnalyst = DataAnalyst(c)
 
     # Initialize hikers
-    lucas = Hiker('CLIFF', 'lucas', lucas_points, alpha=0.5, beta=0.7)
-    facu = Hiker('CLIFF', 'facu', facu_points, alpha=0.5, beta=0.8)
-    fran = Hiker('CLIFF', 'fran', fran_points, strat="follow_points", alpha=0.5, beta=0.5)
-    ivan = Hiker('CLIFF', 'ivan', ivan_points, alpha=0.5, beta=0.99)
-    hikers = [lucas, facu, fran, ivan]
+    agent_a = Hiker('CLIFF', 'agent_a', agent_a_points, alpha=0.5, beta=0.8)
+    agent_b = Hiker('CLIFF', 'agent_b', agent_b_points, alpha=0.5, beta=0.7)
+    agent_c = Hiker('CLIFF', 'agent_c', agent_c_points, alpha=0.5, beta=0.99)
+    agent_d = Hiker('CLIFF', 'agent_d', agent_d_points, strat="follow_points", alpha=0.5, beta=0.5)
+    hikers = [agent_a, agent_b, agent_c, agent_d]
 
     # Initialize empty list for saving the local maximums
     local_maxs = []
@@ -240,16 +240,16 @@ def main() -> None:
         # If no team won, players follow their strategy.
         if not dataAnalyst.check_win()[0]:
 
-            lucas_new_d_and_s = lucas.strategy(local_maxs, "G")
-            facu_new_d_and_s = facu.strategy(local_maxs, "G")
-            fran_new_d_and_s = fran.strategy(local_maxs, "G")
-            ivan_new_d_and_s = ivan.strategy(local_maxs, "G")
+            agent_a_new_d_and_s = agent_a.strategy(local_maxs, "G")
+            agent_b_new_d_and_s = agent_b.strategy(local_maxs, "G")
+            agent_c_new_d_and_s = agent_c.strategy(local_maxs, "G")
+            agent_d_new_d_and_s = agent_d.strategy(local_maxs, "G")
 
             directives = {
-                lucas.name: {'direction': lucas_new_d_and_s[0], 'speed': lucas_new_d_and_s[1]},
-                facu.name: {'direction': facu_new_d_and_s[0], 'speed': facu_new_d_and_s[1]},
-                fran.name: {'direction': fran_new_d_and_s[0], 'speed': fran_new_d_and_s[1]},
-                ivan.name: {'direction': ivan_new_d_and_s[0], 'speed': ivan_new_d_and_s[1]},
+                agent_a.name: {'direction': agent_a_new_d_and_s[0], 'speed': agent_a_new_d_and_s[1]},
+                agent_b.name: {'direction': agent_b_new_d_and_s[0], 'speed': agent_b_new_d_and_s[1]},
+                agent_c.name: {'direction': agent_c_new_d_and_s[0], 'speed': agent_c_new_d_and_s[1]},
+                agent_d.name: {'direction': agent_d_new_d_and_s[0], 'speed': agent_d_new_d_and_s[1]},
             }
 
         # If a team wins, all our hikers go to the win coordinates
@@ -257,10 +257,10 @@ def main() -> None:
             print(f'Alguien gano escaladores yendo a pos {dataAnalyst.check_win()[1]}')
             x_y_win = (dataAnalyst.check_win()[1][0], dataAnalyst.check_win()[1][1])
             directives = {
-                lucas.name: {'direction': lucas.direction_p(x_y_win), 'speed': lucas.speed_p(x_y_win)},
-                facu.name: {'direction': facu.direction_p(x_y_win), 'speed': facu.speed_p(x_y_win)},
-                fran.name: {'direction': fran.direction_p(x_y_win), 'speed': fran.speed_p(x_y_win)},
-                ivan.name: {'direction': ivan.direction_p(x_y_win), 'speed': ivan.speed_p(x_y_win)},
+                agent_a.name: {'direction': agent_a.direction_p(x_y_win), 'speed': agent_a.speed_p(x_y_win)},
+                agent_b.name: {'direction': agent_b.direction_p(x_y_win), 'speed': agent_b.speed_p(x_y_win)},
+                agent_c.name: {'direction': agent_c.direction_p(x_y_win), 'speed': agent_c.speed_p(x_y_win)},
+                agent_d.name: {'direction': agent_d.direction_p(x_y_win), 'speed': agent_d.speed_p(x_y_win)},
             }
 
         # Check hikers behavior and update directives if needed
